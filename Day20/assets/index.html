@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>App</title>
+</head>
+<body>
+  <form id="form" method="POST" action="/submit">
+    <input type="text" name="product_name" placeholder="Product Name" /><br />
+    <input type="text" name="price" placeholder="Price" /><br />
+    <button type="submit">Send</button>
+  </form>
+  <script>
+  let form = document.getElementById('form');
+  console.log("FORM");
+  form.addEventListener('submit', (event) => {
+    console.log("SUBMIT");
+    event.preventDefault();
+    console.log('TODO: Send some JSON using fetch()');
+    fetch('/submit-json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(Array.from(form.getElementsByTagName('INPUT')).map((item) => {
+        return {[item.name]: item.value};
+      }))
+    });
+  });
+  </script>
+</body>
+</html>
